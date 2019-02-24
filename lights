@@ -1,0 +1,50 @@
+int LEDArray[] = {5, 6, 9, 10};           // LED array for PWM 5,6,9 and 10
+int numOfLEDs = 4;                       // LEDs of index 0-3
+int pirState = LOW;
+int pirVal = 0;
+int pirPin = 12;
+
+
+void setup()  {
+ 
+  Serial.begin(9600);
+  pinMode(pirPin, INPUT);
+ 
+  int i;
+  for(i = 0; i < numOfLEDs; i++) {
+    pinMode(LEDArray[i], OUTPUT);
+  }
+}
+
+void loop()  {
+  pirVal = digitalRead(pirPin);
+  //Serial.println(pirVal);
+  int i;
+  //if motion is captured, light the LEDs in sequence
+  if (pirVal == HIGH) {
+    Serial.println("pretty lights");
+    for (i= 0; i < numOfLEDs; i++) {
+      analogWrite(LEDArray[i], 255);
+      delay (1000);
+    }
+    delay (1000);
+    for (i= 0; i < numOfLEDs; i++) {
+      analogWrite(LEDArray[i], 0);
+      delay (1000);
+    }
+    if (pirState == LOW) {
+       pirState = HIGH;
+    }
+  }
+  //else, set all LED values to zero
+  else {
+    Serial.println("turning off");
+    analogWrite(LEDArray[0], 0);
+    analogWrite(LEDArray[1], 0);
+    analogWrite(LEDArray[2], 0);
+    analogWrite(LEDArray[3], 0);
+    if (pirState == HIGH) {
+      pirState = LOW;
+    }
+  }
+}
