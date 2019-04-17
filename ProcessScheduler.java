@@ -24,7 +24,7 @@ public class ProcessScheduler {
     static {
         burst = new Comparator<SimpleProcess>(){
             @Override
-            pubilc int compare(SimpleProcess a, SimpleProcess b){
+            public int compare(SimpleProcess a, SimpleProcess b){
                 if (a.getNextBurst() < b.getNextBurst())
                     return -1;
                 if (a.getNextBurst() > b.getNextBurst())
