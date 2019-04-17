@@ -146,5 +146,6 @@ public class ProcessScheduler {
         { 
             this.time = this.time + this.readyQueue.get(i).wt; 
         } 
-        return (double)this.time / (double)this.readyQueue.size());     
+        return ((double)this.time / (double)this.readyQueue.size());     
     }
+}
