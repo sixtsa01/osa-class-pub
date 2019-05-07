@@ -57,36 +57,36 @@ public class MemoryScheduler {
             pages[i] = Integer.parseInt(opt_number[i]);
         }
         int frames = 3;
-        int pointer = 0;
+        int point = 0;
         int page_faults = 0;
         int ref;
-        boolean isFull = false;
+        boolean doneD = false;
         int buffer[];
-        boolean hit[];
+        boolean box[];
         int fault[];
         int layout[][];
         ref = pages.length;
         layout = new int[ref][frames];
         buffer = new int[frames];
-        hit = new boolean[ref];
+        box = new boolean[ref];
         fault = new int[ref];
         for (int i=0; i <ref; i++) {
             int search = -1;
             for (int k=0; k < frames; k++) {
                 if(buffer[k] == pages[i]) {
                     search = k;
-                    hit[i] = true;
+                    box[i] = true;
                     fault[i] = page_faults;
                     break;
                 }
             }
             if(search == -1) {
-                if(isFull) {
+                if(doneD) {
                     int index[] = new int[frames];
                     boolean index2 = new boolean[frames];
                     for(int k= i +1; k<ref; k++) {
                         int max = index[0];
-                        pointer = 0;
+                        point = 0;
                         if(max == 0) {
                             max = 200;
                         }
@@ -96,18 +96,18 @@ public class MemoryScheduler {
                             }
                             if(index[j] > max) {
                                 max = index[j];
-                                pointer = j;
+                                point = j;
                             }
                         }
                     }
-                    buffer[pointer] = pages[i];
+                    buffer[point] = pages[i];
                     page_faults++;
                     fault[i] = page_faults;
-                    if(!isFull) {
-                        pointer++;
-                        if(pointer == frames) {
-                            pointer = 0;
-                            isFull = true;
+                    if(!doneD) {
+                        point++;
+                        if(point == frames) {
+                            point = 0;
+                            doneD = true;
                         }
                     }
                 }
